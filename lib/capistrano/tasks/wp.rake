@@ -9,7 +9,7 @@ namespace :wp do
     on roles(:app) do
       # Get the server web user
       web_user = fetch(:web_user)
-      
+
       execute :chmod, "664 #{shared_path}/.htaccess"
       execute :chmod, "-R 775 #{shared_path}/content/uploads"
       execute :chown, ":#{web_user} #{shared_path}/content/uploads"
@@ -138,7 +138,7 @@ namespace :wp do
         File.open('robots.txt', 'w') { |f| f.write(robotsfile) }
 
         # Install WordPress
-        execute :wp, "core install --url='#{wp_siteurl}' --title='#{title}' --admin_user='#{user}' --admin_password='#{password}' --admin_email='#{email}'"
+        execute :'docker-compose', "run --rm cli core install --url='#{wp_siteurl}' --title='#{title}' --admin_user='#{user}' --admin_password='#{password}' --admin_email='#{email}'"
 
         puts <<-MSG
         \e[32m

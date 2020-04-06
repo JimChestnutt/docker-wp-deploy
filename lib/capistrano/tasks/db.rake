@@ -118,8 +118,8 @@ namespace :db do
 
     on roles(:db) do
       run_locally do
-        execute :gzip, "-c -d db_backups/#{fetch(:backup_filename)}.sql.gz | wp db import -"
-        execute :wp, "search-replace #{fetch(:stage_url)} #{fetch(:wp_localurl)}"
+        execute :gzip, "-c -d db_backups/#{fetch(:backup_filename)}.sql.gz | docker-compose run --rm cli db import -"
+        execute :'docker-compose', "run --rm cli search-replace #{fetch(:stage_url)} #{fetch(:wp_localurl)}"
         execute :rm, "db_backups/#{fetch(:backup_filename)}.sql.gz"
         execute :rmdir, 'db_backups' if Dir['db_backups/*'].empty?
       end
@@ -139,7 +139,7 @@ namespace :db do
     on roles(:db) do
       run_locally do
         execute :mkdir, '-p db_backups'
-        execute :wp, "db export - | gzip > db_backups/#{fetch(:backup_filename)}.sql.gz"
+        execute :'docker-compose', "run --rm cli db export - | gzip > db_backups/#{fetch(:backup_filename)}.sql.gz"
       end
 
       upload! "db_backups/#{fetch(:backup_filename)}.sql.gz", "#{fetch(:backup_file)}"

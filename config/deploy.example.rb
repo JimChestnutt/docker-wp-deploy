@@ -12,14 +12,14 @@ set :wp_user, 'yourname'
 set :wp_email, 'yourname@example.com'
 
 # The WordPress 'Site Title' for the website
-set :wp_sitename, 'WP Deploy'
+set :wp_sitename, 'Docker WP Deploy'
 
 # The local environment URL.
-set :wp_localurl, 'http://wpdeploy.local'
+set :wp_localurl, 'http://dockerwpdeploy.test'
 
 # An identifying name for the application to be used by Capistrano
-set :application, 'wp-deploy'
-set :repo_url, 'git@github.com:Mixd/wp-deploy.git'
+set :application, 'docker-wp-deploy'
+set :repo_url, 'git@github.com:JimChestnutt/docker-wp-deploy.git'
 
 
 ################################################################################

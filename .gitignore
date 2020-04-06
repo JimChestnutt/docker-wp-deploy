@@ -33,3 +33,6 @@ node_modules
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+/docker/db/
+/html/
