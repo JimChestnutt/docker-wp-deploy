@@ -1,6 +1,20 @@
-# wp-deploy
 
-Capistrano powered WordPress deployment.
+# docker-wp-deploy
+
+Capistrano powered WordPress deployment, adapted for a local docker environment.
+
+Based on wp-deploy (https://github.com/Mixd/wp-deploy)
+
+## Docker-specific features
+
+This variant requires a similar setup to wp-deploy - it is still a Capistrano base, and requires a similar Ruby installation. The docker environment replaces the requirement to have a local PHP/MySQL installation, and WP-CLI is handled from within docker.
+
+### Docker-specific commands
+
+Note: most wp-deploy commands work as normal (e.g. wp:setup:local will still need to be run to set up the local WordPress environment)
+
+-**Start Environment**: 'docker-compose up' - this will bring up the required frontend and database containers. By default this repo currently uses nginx, php 7.3 and mysql 5.7, these can be adjusted in the docker-compose.yml.
+-**wp-cli**: normal wp-cli commands now need to run through a docker container. the wp-cli container in the base docker-compose file is referred to as 'cli', so a docker-aware wp-cli command would now be reformatted from 'wp ...' to 'docker-compose run --rm cli ...'. This will spin up a temporary wp-cli container to run your command.
 
 ---
 
